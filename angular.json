@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "notes-frontend": {
+    "notaly": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -88,18 +88,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "notes-frontend:build"
+            "browserTarget": "notaly:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "notes-frontend:build:production"
+              "browserTarget": "notaly:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "notes-frontend:build"
+            "browserTarget": "notaly:build"
           }
         },
         "test": {
@@ -136,15 +136,20 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "notes-frontend:serve"
+            "devServerTarget": "notaly:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "notes-frontend:serve:production"
+              "devServerTarget": "notaly:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
-    }},
-  "defaultProject": "notes-frontend"
+    }
+  },
+  "defaultProject": "notaly"
 }

@@ -1,0 +1,61 @@
+@import '../../../main-style.scss';
+
+.user-card-container {
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0px 2px 15px 2px rgba(black, 0.068);
+    height: 100px;
+    position: relative;
+    transition: box-shadow 0.2s ease-out;
+
+
+    &:hover {
+        box-shadow: 0px 0px 0px 4px rgba(black, 0.068);
+        cursor: pointer;
+
+        .x-button {
+            opacity: 1;
+            transform: scale(1);
+            transition-delay: 0.30s;
+        }
+
+        .navbutton {
+            opacity: 1;
+            transform: scale(1);
+            transition-delay: 0.30s;
+        }
+    }
+
+    .user-card-content {
+        padding: 25px;
+
+        .user-card-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: black;
+        }
+
+    }
+}
+
+
+
+.x-button {
+    background: white;
+    border-radius: 4px;
+    opacity: 0;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    transform: scale(0.35);
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+
+    &:hover {
+        background-color: darken($light-grey, 2%);
+    }
+
+    &:active {
+        background-color: darken($light-grey, 5%);
+    }
+}
+

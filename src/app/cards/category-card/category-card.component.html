@@ -1,0 +1,20 @@
+<div #container class="category-card-container">
+    <a [routerLink]="link">
+        <div class="category-card-content">
+            <h1 class="category-card-title"></h1>
+            <div #bodyText class="category-card-body">
+                <div class="field">
+                    <div class="field-body">
+                        <div class="control">
+                            <span class="icon has-text-info is-left">
+                                <i class="fas fa-pencil-ruler fa-lg"></i>
+                              </span>
+                            <h1 class="category-card-title">{{ name }}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    <div class="x-button" (click)="onXButtonClick()"><span class="icon"><i class="fas fa-times fa-lg"></i></span></div>
+</div>

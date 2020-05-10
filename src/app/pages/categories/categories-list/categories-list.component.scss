@@ -1,0 +1,38 @@
+@import '../../../../main-style.scss'; 
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 600px;
+    padding-top: 50px;
+}
+
+.categories-list {
+    margin-top: 35px;
+    margin-bottom: 70px;
+}
+
+app-category-card {
+    display: block;
+    margin-bottom: 25px;
+}
+
+.floating-add-button {
+    border-radius: 0;
+    bottom: 0;
+    font-size: 18px;
+    height: 68px;
+    left: 47%;
+    margin: auto;
+    margin-bottom: 5%;
+    position: fixed;
+}
+
+.currentPage {
+    border-color: #17a2b8;
+ 
+    &:hover {
+     border-color: darken(#17a2b8, 2%);
+     }
+ }

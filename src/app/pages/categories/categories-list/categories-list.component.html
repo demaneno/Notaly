@@ -1,0 +1,46 @@
+<div class="main-container">
+    
+    
+    <div class="search-bar-container">
+        <div class="field">
+            <p class="control has-icons-right">
+              <input #filterInput class="input" type="text" (keyup)="filter($event.target.value)" placeholder="Filter">
+              <span class="icon is-small is-right">
+                <i class="fas fa-search"></i>
+              </span>
+            </p>
+          </div>
+    </div>
+
+
+    <div class="categories-list" [@listAnim]>
+        <app-category-card class="is-primary"
+        *ngFor="let category of filteredCategories; index as i" 
+        [link]="generateCategoryURL(category)"
+        [@itemAnim]
+        (delete)="deleteCategory(category)"
+        [name]="category.name">
+        </app-category-card>
+    </div>
+    
+    <aside class="field buttons floating-add-button ">
+      <div class="field-body  is-primary is-grouped"> 
+        <button class="button is-rounded is-outlined" routerLink="../users">
+          <span class="icon is-small is-left">
+              <i class="fas fa-user fa-lg"> </i>
+            </span>
+        </button>
+        <button class="button is-rounded is-outlined currentPage" data-target="modal" aria-haspopup="true" routerLink="new">
+            <span class="icon is-small is-left">
+                <i class="fas fa-edit fa-lg"></i>
+            </span>
+        </button>
+              <button class="button is-rounded is-outlined" routerLink="/">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-clipboard fa-lg"></i>
+                  </span>
+            </button>
+      </div>
+    </aside>
+   
+</div>

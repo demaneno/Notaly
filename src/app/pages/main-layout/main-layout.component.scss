@@ -1,0 +1,25 @@
+.layout-box { 
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+
+    .page-content {
+        flex-grow: 1;
+        overflow-y: scroll; //scroll - bar content 
+        background: white;
+    }
+}
+
+.navbar {
+    background: white;
+    display: flex;
+    flex-shrink: 0;  // prevent menu from shrinking
+    height: 68px;
+    width: 100%;
+
+    h1 {
+        color: white;
+        font-size: 24px;
+    }
+}

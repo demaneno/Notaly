@@ -1,0 +1,34 @@
+<div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+    <div class="box">
+    <article class="media">
+        <div class="form-container">
+            <form #categoryForm="ngForm" (ngSubmit)="onSubmit(categoryForm)">
+                <br>
+                <br>
+                <div class="field">
+                    <label class="label">Category</label>
+                <div class="control has-icons-left">
+                 <input class="input" type="text" placeholder="Category toevoegen..." name="name" [ngModel]="category.name" required>
+                 <span class="icon is-small is-left">
+                   <i class="fas fa-pencil-ruler"></i>
+                 </span>
+                </div>
+               </div>
+                 <br>
+                <br>
+                <aside class="field ">
+                    <div class="field-body buttons is-pulled-right">
+                            <button class="button navbutton" type="button" (click)="cancel()">
+                                <span class="icon"><i class="fas fa-times" ></i></span>
+                            </button>
+                            <button class="button navbutton-save is-success" [disabled]="!categoryForm.valid" type="submit">
+                                <span class="icon"><i class="fas fa-save"></i></span>
+                            </button>
+                    </div>
+                </aside>
+            </form>
+        </div>
+    </article>
+</div>

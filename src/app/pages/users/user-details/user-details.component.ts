@@ -32,7 +32,6 @@ export class UserDetailsComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form);
     if(this.new) {
       this.usersService.add(form.value);
       this.router.navigateByUrl('/users');

@@ -1,34 +1,37 @@
 <div class="modal is-active">
     <div class="modal-background"></div>
     <div class="modal-content">
-    <div class="box">
-    <article class="media">
-        <div class="form-container">
-            <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
-                <br>
-                <br>
-                <div class="field">
-                    <label class="label">Naam</label>
-                <div class="control has-icons-left">
-                 <input class="input" type="text" placeholder="Naam toevoegen..." name="name" [ngModel]="user.name" required>
-                 <span class="icon is-small is-left">
-                   <i class="fas fa-user"></i>
-                 </span>
+        <div class="box">
+            <article class="media">
+                <div class="form-container">
+                    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+                        <br>
+                        <br>
+                        <div class="field">
+                            <label class="label">Naam</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="text" placeholder="Naam toevoegen..." name="name"
+                                    [ngModel]="user.name" required>
+
+                                <span class="icon is-small is-left" [ngModel]="user.id">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <aside class="field ">
+                            <div class="field-body buttons is-pulled-right">
+                                <button class="button navbutton" type="button" (click)="cancel()">
+                                    <span class="icon"><i class="fas fa-times"></i></span>
+                                </button>
+                                <button class="button navbutton-save is-success" [disabled]="!userForm.valid"
+                                    type="submit">
+                                    <span class="icon"><i class="fas fa-save"></i></span>
+                                </button>
+                            </div>
+                        </aside>
+                    </form>
                 </div>
-               </div>
-                 <br>
-                <br>
-                <aside class="field ">
-                    <div class="field-body buttons is-pulled-right">
-                            <button class="button navbutton" type="button" (click)="cancel()">
-                                <span class="icon"><i class="fas fa-times" ></i></span>
-                            </button>
-                            <button class="button navbutton-save is-success" [disabled]="!userForm.valid" type="submit">
-                                <span class="icon"><i class="fas fa-save"></i></span>
-                            </button>
-                    </div>
-                </aside>
-            </form>
+            </article>
         </div>
-    </article>
-    </div>

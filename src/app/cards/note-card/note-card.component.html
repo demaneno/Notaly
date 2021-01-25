@@ -1,4 +1,4 @@
-<div #container class="note-card-container">
+<div #container class="note-card-container" routerLink="{{ id }}">
     <a [routerLink]="link">
         <div class="note-card-content">
             <h1 class="note-card-title">{{ title }}</h1>
@@ -7,27 +7,23 @@
     
                 <div #truncator class="fade-out-truncation"></div>
             </div>
-            <div class="note-card-footer is-right">
-                <div class="field">
-                    <div class="field-body">
-                        <div class="control has-icons-left">
-                            <div class="icon is-small is-left">
-                                <i class="fas fa-user"></i>
-                              </div>
-                            <p> {{ user }}</p>
-                        </div>
-                    </div>
+        </div>
+        <div class="field is-grouped">
+            <div class="control is-half">
+                <div class="control has-icons-left">
+                  <input class="input" type="text"  value="name" name="name" [ngModel]="user" readonly>
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
                 </div>
-                <!-- <div class="field">
-                    <div class="field-body">
-                        <div class="control has-icons-left">
-                            <div class="icon is-small is-left">
-                                <i class="fas fa-info-circle"></i>
-                              </div>
-                          <p> {{ category }}</p> 
-                        </div>
-                    </div>
-                </div> -->
+            </div>
+            <div class="control is-half ">
+                <div class="control has-icons-left">
+                  <input class="input" type="text" value="category" name="category" [ngModel]="category" readonly>
+                  <span class="icon is-small is-left">
+                    <i class="fa-pencil-ruler"></i>
+                  </span>
+                </div>
             </div>
         </div>
     </a>

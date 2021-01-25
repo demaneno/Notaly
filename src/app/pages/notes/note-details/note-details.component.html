@@ -23,9 +23,9 @@
                         <div class="control has-icons-left column is-half">
                           <div class="control">
                             <div class="select">
-                              <select name="user" [ngModel]="note.user">
-                                <option value="null">Maak een keuze...</option>
-                                <option>With options</option>
+                              <select name="user" [ngModel]="note.userId">
+                                <option [ngValue]="null">Maak een keuze</option>
+                                <option *ngFor="let user of usersList" (click)="getUser(user)">{{ user.name }}</option>
                               </select>
                             </div>
                             <div class="icon is-small is-left ">
@@ -36,9 +36,9 @@
                         <div class="control has-icons-left column is-half">
                           <div class="control">
                             <div class="select">
-                              <select name="category" [ngModel]="note.category">
-                                <option value="null">Maak een keuze...</option>
-                                <option>With options</option>
+                              <select name="category" [ngModel]="note.categoryId">
+                                <option [ngValue]="null">Maak een keuze</option>
+                                <option *ngFor="let category of categoriesList"  (click)="getCategory(category)">{{ category.name }}</option>
                               </select>
                             </div>
                             <div class="icon is-small is-left">

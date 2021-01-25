@@ -13,13 +13,14 @@
     </div>
 
 
-    <div class="users-list" [@listAnim]>
+        <div class="users-list" [@listAnim]>
         <app-user-card class="is-primary"
         *ngFor="let user of filteredUsers; index as i" 
         [link]="generateUserURL(user)"
         [@itemAnim]
         (delete)="deleteUser(user)"
-        [name]="user.name">
+        [name]="user.name"
+        [id]="user.id">
         </app-user-card>
     </div>
     

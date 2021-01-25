@@ -8,33 +8,27 @@ import { UserDetailsComponent } from './pages/users/user-details/user-details.co
 import { CategoriesListComponent } from './pages/categories/categories-list/categories-list.component';
 import { CategoryDetailsComponent } from './pages/categories/category-details/category-details.component';
 
-
-
 const routes: Routes = [
   { path: '', redirectTo: '/notes', pathMatch: 'full' },
-  { path: '',  component: MainLayoutComponent, children: [
-    { path: 'notes', component: NotesListComponent},
-    { path: 'users', component: UsersListComponent},
-    { path: 'categories', component: CategoriesListComponent},
-    { path: 'notes/new',  component: NoteDetailsComponent},
-    { path: 'notes/:id', component: NoteDetailsComponent},
-    { path: 'users/new', component: UserDetailsComponent},
-    { path: 'users/:id', component: UserDetailsComponent},
-    { path: 'categories/new', component: CategoryDetailsComponent},
-    { path: 'categories/:id', component: CategoryDetailsComponent}
-  ] }
-];
-
-RouterModule.forRoot([
   {
-    path: 'notes',
-    component: NotesListComponent
-  }
-])
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      { path: 'notes', component: NotesListComponent },
+      { path: 'users', component: UsersListComponent },
+      { path: 'categories', component: CategoriesListComponent },
+      { path: 'notes/new', component: NoteDetailsComponent },
+      { path: 'notes/:id', component: NoteDetailsComponent },
+      { path: 'users/new', component: UserDetailsComponent },
+      { path: 'users/:id', component: UserDetailsComponent },
+      { path: 'categories/new', component: CategoryDetailsComponent },
+      { path: 'categories/:id', component: CategoryDetailsComponent }],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 
-export class AppRoutingModule { }
+export class AppRoutingModule {};

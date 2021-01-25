@@ -22,6 +22,15 @@
     // padding: 25px;
     position: relative;
 
+    input {
+        min-width: 500px;
+    }
+
+    .select {
+        min-width: 250px;
+    }
+
+
     &:hover {
 
         .navbutton {

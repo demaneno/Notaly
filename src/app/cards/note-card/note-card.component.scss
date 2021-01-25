@@ -4,10 +4,18 @@
     background: white;
     border-radius: 5px;
     box-shadow: 0px 2px 15px 2px rgba(black, 0.068);
-    height: 170px;
+    height: 190px;
     position: relative;
     transition: box-shadow 0.2s ease-out;
 
+    input {
+        max-width: 250px;
+    }
+
+    .column {
+        display: flex;
+        align-items: center
+    }
 
     &:hover {
         box-shadow: 0px 0px 0px 4px rgba(black, 0.068);
@@ -51,10 +59,10 @@
         }
 
         .note-card-footer {
-            // position: absolute;
+            position: absolute;
             left: 25px;
             height: 25px;
-            bottom: 10px;
+            bottom: 25px;
         }
     }
 }

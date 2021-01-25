@@ -16,7 +16,7 @@
         <app-note-card class="is-primary"
         *ngFor="let note of filteredNotes; index as i" 
         [link]="generateNoteURL(note)"
-        [@itemAnim]
+        [@itemAnim]   
         (delete)="deleteNote(note)"
         [title]="note.title" 
         [body]="note.body" 

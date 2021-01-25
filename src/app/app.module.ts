@@ -1,8 +1,9 @@
+/* eslint-disable import/no-unresolved */
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotesListComponent } from './pages/notes/notes-list/notes-list.component';
@@ -28,15 +29,18 @@ import { CategoryCardComponent } from './cards/category-card/category-card.compo
     CategoriesListComponent,
     CategoryDetailsComponent,
     UserCardComponent,
-    CategoryCardComponent
+    CategoryCardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    BrowserAnimationsModule
-    ],
+    BrowserAnimationsModule,
+    HttpClientModule,
+  ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
+
+// eslint-disable-next-line import/prefer-default-export
 export class AppModule { }

@@ -1,17 +1,18 @@
 <div #container class="note-card-container" routerLink="{{ id }}">
     <a [routerLink]="link">
         <div class="note-card-content">
-            <h1 class="note-card-title">{{ title }}</h1>
-            <div #bodyText class="note-card-body">
-                <p>{{ body }}</p>
-    
-                <div #truncator class="fade-out-truncation"></div>
-            </div>
-        </div>
+            <h1 class="note-card-title">{{ title }}</h1>       
+          <div #bodyText class="note-card-body sidebar-box">
+              <p>{{ body }}</p>  
+              <hr>
+              <div #truncator class="fade-out-truncation"></div>
+          </div>
+      </div>
+      <div class="note-card-content note-card-components">
         <div class="field is-grouped">
             <div class="control is-half">
-                <div class="control has-icons-left">
-                  <input class="input" type="text"  value="name" name="name" [ngModel]="user" readonly>
+                <div class="control has-icons-left"> 
+                  <input class="input" type="text"  value="name" name="filteredNotes[i].user.id" [ngModel]="user" readonly>
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
@@ -19,13 +20,14 @@
             </div>
             <div class="control is-half ">
                 <div class="control has-icons-left">
-                  <input class="input" type="text" value="category" name="category" [ngModel]="category" readonly>
+                  <input class="input" type="text" value="category" name="category.name" [ngModel]="category" readonly>
                   <span class="icon is-small is-left">
-                    <i class="fa-pencil-ruler"></i>
+                    <i class="fas fa-pencil-ruler"></i>
                   </span>
                 </div>
             </div>
         </div>
+      </div>
     </a>
     <div class="x-button" (click)="onXButtonClick()"><span class="icon"><i class="fas fa-times fa-lg"></i></span></div>
 </div>

@@ -12,11 +12,11 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable import/no-unresolved */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { User } from './user.model';
-import { Note } from '../../app/shared/note.model';
-import { Category } from '../../app/shared/category.model';
+import { Note } from './note.model';
+import { Category } from './category.model';
 
 @Injectable({ providedIn: 'root' })
 
@@ -28,6 +28,11 @@ export class APIService {
 
   seconds = this.secondsSubject.asObservable();
   listUser: User[];
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
 
   constructor(private http: HttpClient) {
     this.decreaseCounter();
@@ -43,79 +48,100 @@ export class APIService {
 
   // ADD
   AddUser = (name: string) => {
-  const data = { 'name': name };
-    return this.http.post('https://fortunate-aged-moth.glitch.me/user?name=', data);
+    const data = { 'name': name };
+    return this.http.post('https://grove-ribbon-gray.glitch.me/user?name=', data);
   }
 
   AddCategory = (name: string) => {
- const data = { 'name': name };
-    return this.http.post('https://fortunate-aged-moth.glitch.me/category?name=', data);
+    const data = { 'name': name };
+    return this.http.post('https://grove-ribbon-gray.glitch.me/category?name=', data);
   }
 
-  AddNote = (name: string, note: string, category: string, userId: number) => {
- const data = {
- 'name': name, 'content': note, 'category': category, 'userId': userId 
-};
-      return this.http.post('https://fortunate-aged-moth.glitch.me/note', data); 
-    }
+  AddNote = (note: Note) => {
+    const temp = encodeURI(`https://grove-ribbon-gray.glitch.me/note?title=${note.title}&body=${note.body}&categoryId=${note.categoryId}&userId=${note.userId}`);
+   return this.http.post(temp.replace('%20','+'),note);
+  }
 
   // GETALL
-  GetUsers = () => this.http.get('https://fortunate-aged-moth.glitch.me/users');
+  GetUsers = () => this.http.get('https://grove-ribbon-gray.glitch.me/users');
 
-  GetCategories = () => this.http.get('https://fortunate-aged-moth.glitch.me/categories');
+  GetCategories = () => this.http.get('https://grove-ribbon-gray.glitch.me/categories');
 
-  GetNotes = () => this.http.get('https://fortunate-aged-moth.glitch.me/notes');
+  GetNotes = () => this.http.get('https://grove-ribbon-gray.glitch.me/notes');
 
   // GET by ID
   GetUserById = (id: number): Observable<User> => {
-    const encodedUri = encodeURI(`https://fortunate-aged-moth.glitch.me/getUserById?id=${id}`);
+    const encodedUri = encodeURI(`https://grove-ribbon-gray.glitch.me/getUserById?id=${id}`);
     return this.http.get<User>(encodedUri);
   }
 
   GetCategoryById = (id: number): Observable<Category> => {
-    const encodedUri = encodeURI(`https://fortunate-aged-moth.glitch.me/getCategoryById?id=${id}`);
+    const encodedUri = encodeURI(`https://grove-ribbon-gray.glitch.me/getCategoryById?id=${id}`);
     return this.http.get<Category>(encodedUri);
   }
- 
+
   GetNoteById = (id: number): Observable<Note> => {
-    const encodedUri = encodeURI(`https://fortunate-aged-moth.glitch.me/getNoteById?id=${id}`);
+    const encodedUri = encodeURI(`https://grove-ribbon-gray.glitch.me/getNoteById?id=${id}`);
     return this.http.get<Note>(encodedUri);
   }
 
   // DELETE
   // DelUser = (name: string) : Observable<User> => {
-  // const encodedUri = encodeURI(`https://fortunate-aged-moth.glitch.me/deleteUser?name=${name}`);
+  // const encodedUri = encodeURI(`https://grove-ribbon-gray.glitch.me/deleteUser?name=${name}`);
   // return this.http.delete<User>(encodedUri);
   // }
 
   DelUser = (name: string) => {
-    const encodedUri = encodeURI(`https://fortunate-aged-moth.glitch.me/deleteUser?name=${name}`);
-    return this.http.delete<User>(encodedUri.toString()); 
-    }
+    const encodedUri = encodeURI(`https://grove-ribbon-gray.glitch.me/deleteUser?name=${name}`);
+    return this.http.delete<User>(encodedUri.toString());
+  }
 
   DelCategory = (name: string) => {
-    const encodedUri = encodeURI(`https://fortunate-aged-moth.glitch.me/deleteCategory?name=${name}`);
+    const encodedUri = encodeURI(`https://grove-ribbon-gray.glitch.me/deleteCategory?name=${name}`);
     return this.http.delete<Category>(encodedUri.toString());
-    }
+  }
 
   DelNote = (id: number) => {
-    const encodedUri = encodeURI(`https://fortunate-aged-moth.glitch.me/deleteNote?id=${id}`);
+    const encodedUri = encodeURI(`https://grove-ribbon-gray.glitch.me/deleteNote?id=${id}`);
     return this.http.delete<Note>(encodedUri.toString());
   }
 
   // UPDATE
-  UpdateUser = (id: number, name: string) => {
- const data = { 'id': id, 'name': name };
-    return this.http.patch<any>('https://fortunate-aged-moth.glitch.me/updateUser}', data);
+  UpdateUser = (user: User) => {
+    const params = new HttpParams()
+      .set('id', user.id.toString())
+      .set('name', user.name.toString());
+    return this.http.patch('https://grove-ribbon-gray.glitch.me/updateUser', user, { params })
   }
 
-  UpdateCategories = (category: Category): Observable<Category> => {
-    const http = 'https://fortunate-aged-moth.glitch.me/updateCote';
-    return this.http.patch<Category>(http, { category });
+  UpdateCategories = (category: Category) => {
+    const params = new HttpParams()
+      .set('id', category.id.toString())
+      .set('name', category.name.toString());
+    return this.http.patch('https://grove-ribbon-gray.glitch.me/updateCategory', category, { params })
   }
 
-  UpdateNote = (note: Note): Observable<Note> => {
-    const http = 'https://fortunate-aged-moth.glitch.me/updateNote';
-    return this.http.patch<Note>(http, { note });
+  
+  UpdateNote = (note: Note) => {
+    const params = new HttpParams()
+      .set('id', note.id.toString())
+      .set('title', note.title.toString())
+      .set('body', note.body.toString())
+      .set('categoryId', note.categoryId.toString())
+      .set('userId', note.userId.toString());
+    return this.http.patch('https://grove-ribbon-gray.glitch.me/updateNote', note, { params });
   }
+
+    
+  // UpdateNote = (note: Note) => {
+  //   // const params = new HttpParams()
+  //   //   .set('id', note.id.toString())
+  //   //   .set('title', note.title.toString())
+  //   //   .set('body', note.body.toString())
+  //   //   .set('categoryId', note.categoryId.toString())
+  //   //   .set('userId', note.userId.toString());
+  //     const temp = encodeURI(`https://grove-ribbon-gray.glitch.me/updateNote?id=${note.id}&title=${note.title}&body=${note.body}&categoryId=${note.categoryId}&userId=${note.userId}`);
+  //     return this.http.patch(temp.replace('%20','+'),note);
+  // }
+
 }

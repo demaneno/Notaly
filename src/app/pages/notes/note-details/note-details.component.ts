@@ -13,6 +13,7 @@ import { User } from 'src/app/shared/user.model';
 import { APIService } from 'src/app/shared/api.service';
 import { Category } from 'src/app/shared/category.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { cpuUsage } from 'process';
 
 @Component({
   selector: 'app-note-details',
@@ -28,13 +29,9 @@ export class NoteDetailsComponent implements OnInit {
 
   userId: number;
 
-  selectedUser: User;
+  usersList: User[] = [];
 
-  selectedCategory: Category = new Category;
-
-  usersList : User[] = [];
-
-  categoriesList : Category[] = [];
+  categoriesList: Category[] = [];
 
   constructor(private apiService: APIService, private router: Router, private route: ActivatedRoute) { }
 
@@ -61,23 +58,29 @@ export class NoteDetailsComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (this.new) {
-      this.apiService.AddNote(form.value.title, form.value.body, form.value.category, form.value.user).subscribe((data:Note) => this.note = data);
-      this.router.navigateByUrl('/notes');
+      this.note = form.value;
+      this.apiService.AddNote(this.note).subscribe((data: Note) => {
+        this.note = data      
+      });
+      this.apiService.GetNotes().subscribe(() => {});
+      this.return();
     } else {
-      this.apiService.UpdateNote(form.value).subscribe((data:Note) => this.note = data);
-      this.router.navigateByUrl('/notes');
+      this.noteId = this.note.id;
+      this.note = form.value;
+      this.note.id = this.noteId;
+      this.apiService.UpdateNote(this.note).subscribe((data: Note) => {
+        this.note = data
+        this.apiService.GetNotes().subscribe(() => {});
+      this.return();
+      });
     }
   }
 
   cancel() {
+    this.return();
+  }
+
+  return(){
     this.router.navigateByUrl('/notes');
-  }
-
-  getUser(user: User) {
-    this.selectedUser = user;
-  }
-
-  getCategory(category: Category) {
-    this.selectedCategory = category;
   }
 }

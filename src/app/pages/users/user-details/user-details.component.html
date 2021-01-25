@@ -4,16 +4,18 @@
         <div class="box">
             <article class="media">
                 <div class="form-container">
-                    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+                    <form name="userForm" #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
                         <br>
                         <br>
                         <div class="field">
                             <label class="label">Naam</label>
                             <div class="control has-icons-left">
-                                <input class="input" type="text" placeholder="Naam toevoegen..." name="name"
-                                    [ngModel]="user.name" required>
-
-                                <span class="icon is-small is-left" [ngModel]="user.id">
+                                <input class="input" [(ngModel)]="user.name" name="name" type="text"
+                                    placeholder="Naam toevoegen..." [ngModelOptions]="{standalone: true}">
+                                <!-- <div [hidden]="!user.name" [ngModel]="user.name"class="alert alert-danger form-alert">
+                                    Name is required!
+                                </div> -->
+                                <span class="icon is-small is-left">
                                     <i class="fas fa-user"></i>
                                 </span>
                             </div>
@@ -26,12 +28,13 @@
                                     <span class="icon"><i class="fas fa-times"></i></span>
                                 </button>
                                 <button class="button navbutton-save is-success" [disabled]="!userForm.valid"
-                                    type="submit">
+                                    type="submit" ngModel>
                                     <span class="icon"><i class="fas fa-save"></i></span>
                                 </button>
                             </div>
                         </aside>
                     </form>
+
                 </div>
             </article>
         </div>

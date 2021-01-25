@@ -116,17 +116,20 @@ export class CategoriesListComponent implements OnInit {
   // eslint-disable-next-line no-unused-vars
   constructor(private apiService: APIService) { }
 
-  ngOnInit() {
-    this.apiService.GetCategories().subscribe((data: Category[]) => { this.filteredCategories = data; });
+   ngOnInit() {
+     this.Refresh();
     this.filter('');
   }
 
   deleteCategory(category: Category) {
     // const categoryId = this.apiService.GetCategoryById(category);
-    this.apiService.DelCategory(category.name).subscribe();
+    this.apiService.DelCategory(category.name).subscribe((result)=>{
+      console.log(result)
+      this.filteredCategories.splice(category.id,1);
     this.filter(this.filterInputElRef.nativeElement.value);
-    this.filteredCategories.splice(category.id);
-    this.ngOnInit();
+      this.ngOnInit();
+    });
+    
   }
 
   generateCategoryURL(category: Category) {
@@ -212,5 +215,8 @@ export class CategoriesListComponent implements OnInit {
     });
   }
 
-  Refresh = () => this.apiService.GetCategories().subscribe((data: Category[]) => this.categories = data);
+  Refresh = () => this.apiService.GetCategories().subscribe((data: Category[]) => {
+    this.categories = data
+    this.filteredCategories = this.categories;
+  });
 }

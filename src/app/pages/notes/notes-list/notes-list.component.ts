@@ -104,48 +104,47 @@ export class NotesListComponent implements OnInit {
 
   user: User;
 
+  category: Category;
+
+  usersList: User[] = [];
+
+  categoriesList: Category[] = [];
+
   aId: number;
 
   bId: number;
 
-  count : number = 0;
+  count: number = 0;
 
-  category : Category;
+  filteredNotes: Note[] = [];
 
-  filteredNotes : Note[] = [];
-
-  @ViewChild('filterInput', { static: true }) filterInputElRef: ElementRef <HTMLInputElement>;
+  @ViewChild('filterInput', { static: true }) filterInputElRef: ElementRef<HTMLInputElement>;
 
   constructor(private apiService: APIService, private router: Router) { }
 
   ngOnInit() {
-    this.apiService.GetNotes().subscribe((data: Note[]) => {
-      this.filteredNotes = data;
-    });
-
-    // this.notes = this.notesService.getAll();
+    this.Refresh();
     this.filter('');
   }
 
   deleteNote(note: Note) {
-    this.apiService.DelNote(note.id).subscribe((data:Note) => this.note = data);
-
-    // let noteId = this.notesService.getId(note);
-    // this.notesService.delete(noteId);
+    this.apiService.DelNote(note.id).subscribe(() => {});
     this.filter(this.filterInputElRef.nativeElement.value);
+    this.filteredNotes.splice(note.id,1);
+    this.ngOnInit();
   }
 
   generateNoteURL(note: Note) {
-    // if (this.count <= this.notes.length) {
-    //   this.apiService.GetNoteById(note.id).subscribe((data: Note) => {
-    //     this.note = data;
-    //   });
-    //   this.count+=1;
-    //   if (this.note !== undefined && this.note.id !== undefined) {
-    //     return this.note.id;
-    //   }
-    // }
-    // return 0;
+    if (this.count <= this.notes.length) {
+      this.apiService.GetNoteById(note.id).subscribe((data: Note) => {
+        this.note = data;
+      });
+      this.count+=1;
+      if (this.note !== undefined && this.note.id !== undefined) {
+        return this.note.id;
+      }
+    }
+    return 0;
   }
 
   // eslint-disable-next-line no-shadow
@@ -169,7 +168,7 @@ export class NotesListComponent implements OnInit {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  removeDuplicates(arr: Array<any>) : Array<any> {
+  removeDuplicates(arr: Array<any>): Array<any> {
     let uniqueResults: Set<any> = new Set<any>();
 
     arr.forEach((e) => uniqueResults.add(e));
@@ -177,7 +176,7 @@ export class NotesListComponent implements OnInit {
   }
 
   // eslint-disable-next-line no-shadow
-  relevantNotes(query: any) : Array<Note> {
+  relevantNotes(query: any): Array<Note> {
     // eslint-disable-next-line no-param-reassign
     query = query.toLowerCase().trim();
 
@@ -213,26 +212,29 @@ export class NotesListComponent implements OnInit {
   }
 
   sortByRelevancy(searchResults: Note[]) {
-    // eslint-disable-next-line max-len
-    let noteCountObj: Object = {}; // format - key: value => NoteId: number (note object id : count)
+    let noteCountObj: Object = {};
 
     searchResults.forEach((note) => {
-      this.apiService.GetNoteById(note.id).subscribe((data:Note) => {
+      this.apiService.GetNoteById(note.id).subscribe((data: Note) => {
         this.note = data;
+        console.log(data);
       });
 
-      if (noteCountObj[this.note.id]) {
-        noteCountObj[this.note.id] += 1;
-      } else {
-        noteCountObj[this.note.id] = 1;
+
+      if (this.note !== undefined) {
+        if (this.note.id !== undefined && noteCountObj[this.note.id]) {
+          noteCountObj[this.note.id] += 1;
+        } else {
+          noteCountObj[this.note.id] = 1;
+        }
       }
     });
 
-    this.filteredNotes = this.filteredNotes.sort((a:Note, b:Note) => {
-      this.apiService.GetNoteById(a.id).subscribe((data:Note) => {
+    this.filteredNotes = this.filteredNotes.sort((a: Note, b: Note) => {
+      this.apiService.GetNoteById(a.id).subscribe((data: Note) => {
         this.aId = data.id;
       });
-      this.apiService.GetNoteById(b.id).subscribe((data:Note) => {
+      this.apiService.GetNoteById(b.id).subscribe((data: Note) => {
         this.bId = data.id;
       });
 
@@ -241,5 +243,21 @@ export class NotesListComponent implements OnInit {
 
       return bCount - aCount;
     });
+  }
+
+  Refresh() {   
+
+    this.apiService.GetNotes().subscribe((data: Note[]) => {
+      this.notes = data;
+      this.filteredNotes = this.notes;
+    });
+
+    this.apiService.GetUsers().subscribe((data: User[]) => {
+      this.usersList = data;
+    });
+    this.apiService.GetCategories().subscribe((data: Category[]) => {
+      this.categoriesList = data;
+    });
+
   }
 }

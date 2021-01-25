@@ -16,7 +16,7 @@
     <div class="categories-list" [@listAnim]>
         <app-category-card class="is-primary"
         *ngFor="let category of filteredCategories; index as i" 
-        [link]="generateCategoryURL(category)"
+        [link]="['/categories/',filteredCategories[i].id]"
         [@itemAnim]
         (delete)="deleteCategory(category)"
         [name]="category.name">

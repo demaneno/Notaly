@@ -10,7 +10,8 @@
                 <div class="field">
                     <label class="label">Category</label>
                 <div class="control has-icons-left">
-                 <input class="input" type="text" placeholder="Category toevoegen..." name="name" [ngModel]="category.name" required>
+                 <input class="input" [(ngModel)]="category.name" name="name" type="text"
+                 placeholder="Naam toevoegen..." [ngModelOptions]="{standalone: true}">
 
                  <span class="icon is-small is-left">
                    <i class="fas fa-pencil-ruler"></i>

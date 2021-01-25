@@ -45,37 +45,24 @@ export class UserDetailsComponent implements OnInit {
         this.new = true;
       }
     });
-    // this.apiService.AddUser('Denis').subscribe((result)=> {
-    //   let error = result.error;
-
-    //   if(error){
-    //     console.log("Error!");
-    //   }else{
-    //     this.apiService.GetUsers().subscribe((data: User[]) =>{
-    //       console.log(data);
-    //       this.users = data;
-    //   })
   }
 
   onSubmit(form: NgForm) {
     if (this.new) {
-      this.user = form.value;
-      this.apiService.AddUser(this.user.name).subscribe();
-      this.router.navigateByUrl('/users');
-    } else {
-      // this.apiService.GetUserById(form.value).subscribe((data:User) => this.user = data);
-      const tempId = this.user.id;
-      this.user = form.value;
-      this.user.id = tempId;
-      this.apiService.UpdateUser(this.user.id, this.user.name).subscribe((data) => this.user.name = (data.name));
-      this.router.navigateByUrl('/users');
+      this.apiService.AddUser(this.user.name).subscribe(() => {});
+    this.apiService.GetUsers().subscribe(() => {});
+     } else {    
+      this.apiService.UpdateUser(this.user).subscribe((result) => {});
     }
-
-    this.apiService.GetUsers().subscribe((data:User[]) => {
-    });
+    
+    this.return();
   }
 
   cancel() {
+    this.return();
+  }
+
+  return(){
     this.router.navigateByUrl('/users');
   }
 }

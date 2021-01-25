@@ -30,9 +30,15 @@ export class CategoryDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.category = new Category();
+const temp = params.id;
+this.apiService.GetCategoryById(temp).subscribe((result)=>{
+  params.id = result; 
+  console.log(result);
+});
+
       if (params.id) {
         this.new = false;
-        this.apiService.GetCategoryById(params.id).subscribe((data:Category) => {
+        this.apiService.GetCategoryById(params.id).subscribe((data: Category) => {
           this.category = data;
         });
       } else {
@@ -43,19 +49,20 @@ export class CategoryDetailsComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (this.new) {
-      this.category = form.value;
-      this.apiService.AddCategory(this.category.name).subscribe((data:Category) => this.category = data);
-      this.router.navigateByUrl('/categories');
+      this.apiService.AddCategory(this.category.name).subscribe((result) => {});
     } else {
-      this.apiService.UpdateCategories(this.category).subscribe((data:Category) => this.category = data);
-      this.router.navigateByUrl('/categories');
-
-      this.apiService.GetCategories().subscribe((data:Category[]) => {
-      });
+      this.apiService.UpdateCategories(this.category).subscribe((result) => {});
     }
+
+    this.apiService.GetCategories().subscribe((data: Category[]) => {});
+    this.return();
   }
 
   cancel() {
+    this.return();
+  }
+
+  return() {
     this.router.navigateByUrl('/categories');
   }
 }

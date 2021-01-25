@@ -1,64 +1,65 @@
 <div class="modal is-active">
-    <div class="modal-background"></div>
-    <div class="modal-content">
+  <div class="modal-background"></div>
+  <div class="modal-content">
     <div class="box">
-    <article class="media">
+      <article class="media">
         <div class="form-container">
-            <form #noteForm="ngForm" (ngSubmit)="onSubmit(noteForm)">
-                <div class="field">
-                    <label class="label">Title</label>
-                    <div class="control">
-                        <input type="text"  placeholder="Titel toevoegen..." name="title" [ngModel]="note.title" class="input" required>
-                    </div>
-                </div>
-                <br>
-                <div class="field">
-                    <label class="label">Body</label>
-                    <div class="control">
-                        <textarea class="textarea"  placeholder="Take a note..." name="body" [ngModel]="note.body"></textarea>
-                    </div>
-                </div>
-                <br>
-                    <div class="columns">
-                        <div class="control has-icons-left column is-half">
-                          <div class="control">
-                            <div class="select">
-                              <select name="user" [ngModel]="note.userId">
-                                <option [ngValue]="null">Maak een keuze</option>
-                                <option *ngFor="let user of usersList" (click)="getUser(user)">{{ user.name }}</option>
-                              </select>
-                            </div>
-                            <div class="icon is-small is-left ">
-                              <i class="fas fa-user"></i>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="control has-icons-left column is-half">
-                          <div class="control">
-                            <div class="select">
-                              <select name="category" [ngModel]="note.categoryId">
-                                <option [ngValue]="null">Maak een keuze</option>
-                                <option *ngFor="let category of categoriesList"  (click)="getCategory(category)">{{ category.name }}</option>
-                              </select>
-                            </div>
-                            <div class="icon is-small is-left">
-                              <i class="fas fa-pencil-ruler"></i>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
+          <form #noteForm="ngForm" (ngSubmit)="onSubmit(noteForm)">
+            <div class="field">
+              <label class="label">Title</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="Titel toevoegen..." name="title" [ngModel]="note.title"
+                  required>
+              </div>
+            </div>
             <br>
-                <aside class="field ">
-                    <div class="field-body buttons is-pulled-right">
-                            <button class="button navbutton" type="button" (click)="cancel()">
-                                <span class="icon"><i class="fas fa-times" ></i></span>
-                            </button>
-                            <button class="button navbutton-save is-success" [disabled]="!noteForm.valid" type="submit">
-                                <span class="icon"><i class="fas fa-save"></i></span>
-                            </button>
-                    </div>
-                </aside>
-            </form>
+            <div class="field">
+              <label class="label">Body</label>
+              <div class="control">
+                <textarea class="textarea" placeholder="Take a note..." name="body" [ngModel]="note.body"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="columns">
+              <div class="control has-icons-left column is-half">
+                <div class="control">
+                  <div class="select">
+                    <select name="userId" [ngModel]="note.userId">
+                      <option *ngFor="let user of usersList; let i=index" [value]="usersList[i].id"
+                        [selected]="usersList[i].id >= 0">{{ usersList[i].name }}</option>
+                    </select>
+                  </div>
+                  <div class="icon is-small is-left ">
+                    <i class="fas fa-user"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="control has-icons-left column is-half">
+                <div class="control">
+                  <div class="select">
+                    <select name="categoryId" [ngModel]="note.categoryId">
+                      <option *ngFor="let category of categoriesList; let i=index" [value]="categoriesList[i].id"
+                        [selected]="categoriesList[i].id >= 0">{{ categoriesList[i].name }}</option>
+                    </select>
+                  </div>
+                  <div class="icon is-small is-left">
+                    <i class="fas fa-edit"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <aside class="field ">
+              <div class="field-body buttons is-pulled-right">
+                <button class="button navbutton" type="button" (click)="cancel()">
+                  <span class="icon"><i class="fas fa-times"></i></span>
+                </button>
+                <button class="button navbutton-save is-success" [disabled]="!noteForm.valid" type="submit">
+                  <span class="icon"><i class="fas fa-save"></i></span>
+                </button>
+              </div>
+            </aside>
+          </form>
         </div>
-    </article>
+      </article>
     </div>

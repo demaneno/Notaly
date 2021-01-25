@@ -34,9 +34,9 @@ import { CategoryCardComponent } from './cards/category-card/category-card.compo
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

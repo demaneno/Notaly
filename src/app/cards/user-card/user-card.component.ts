@@ -3,7 +3,7 @@
 import {
   Component, OnInit, ViewChild, ElementRef, Renderer2, Input, Output, EventEmitter,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-card',
@@ -23,12 +23,13 @@ export class UserCardComponent implements OnInit {
   @ViewChild('bodyText', { static: true }) bodyText: ElementRef<HTMLElement>;
 
   // eslint-disable-next-line no-useless-constructor
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2, private router: Router) { }
 
   // eslint-disable-next-line class-methods-use-this
   ngOnInit(): void { }
 
   onXButtonClick() {
+    this.router.navigateByUrl('/users');
     this.deleteEvent.emit();
   }
 }

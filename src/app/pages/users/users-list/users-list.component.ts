@@ -112,39 +112,40 @@ export class UsersListComponent implements OnInit {
 
   noteId: number;
 
-  count : number = 0;
+  count: number = 0;
 
   filteredUsers: User[] = [];
 
   @ViewChild('filterInput', { static: true }) filterInputElRef: ElementRef<HTMLInputElement>;
+  router: any;
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private apiService: APIService) { }
+  constructor(private apiService: APIService ) { }
 
   ngOnInit() {
-    this.filter(' ');
-    this.apiService.GetUsers().subscribe((data:User[]) => { this.filteredUsers = data; });
+    this.Refresh();
     this.filter('');
   }
 
   deleteUser(user: User) {
-    // let userId = this.usersService.getId(user);
-    this.apiService.DelUser(user.name).subscribe();
-    this.filter(this.filterInputElRef.nativeElement.value);
-    this.filteredUsers.splice(user.id);
-    this.ngOnInit();
+    this.apiService.DelUser(user.name).subscribe(()=>{
+      this.filter(this.filterInputElRef.nativeElement.value);
+      this.filteredUsers.splice(user.id,1);
+      this.ngOnInit();
+    });
+    this.Refresh();
   }
 
   generateUserURL(user: User) {
-    // if (this.count <= this.users.length) {
-    //   this.apiService.GetUserById(user.id).subscribe((data: User) => {
-    //     this.user = data;
-    //   });
-    //   this.count+=1;
-    //   if (this.user !== undefined && this.user.id !== undefined) { 
-    //     return this.user.id;
-    //   }
-    // } 
+    if (this.count <= this.users.length) {
+      this.apiService.GetUserById(user.id).subscribe((data: User) => {
+        this.user = data;
+      });
+      this.count+=1;
+      if (this.user !== undefined && this.user.id !== undefined) { 
+        return this.user.id;
+      }
+    } 
   }
 
   // eslint-disable-next-line no-shadow
@@ -196,16 +197,16 @@ export class UsersListComponent implements OnInit {
     let userCountObj: Object = {};
 
     searchResults.forEach((user) => {
-      this.apiService.GetUserById(user.id).subscribe((data: User) => { 
+      this.apiService.GetUserById(user.id).subscribe((data: User) => {
         this.user = data;
       });
       // let userId = this.usersService.getId(user);
- 
+
       // eslint-disable-next-line max-len
       if (this.user !== undefined && userCountObj[this.user.id] !== undefined && userCountObj[this.user.id]) {
-        userCountObj[this.user.id]+=1;
+        userCountObj[this.user.id] += 1;
       } else {
-        userCountObj[this.user.id] =1;
+        userCountObj[this.user.id] = 1;
       }
     });
 
@@ -225,5 +226,11 @@ export class UsersListComponent implements OnInit {
     });
   }
 
-  Refresh = () => this.apiService.GetUsers().subscribe((data: User[]) => this.users = data);
+  Refresh() {
+    this.apiService.GetUsers().subscribe((data: User[]) => { 
+      this.users = data;
+      this.filteredUsers = data;
+    });
+    
+  }
 }
